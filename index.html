@@ -1,0 +1,663 @@
+<!DOCTYPE html><html><head>
+      <title>badavas-server-documentation</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Fira+Code:wght@300..700&display=swap');
+
+* {
+  font-family: inherit;
+}
+
+div {
+  font-family: "Inter", sans-serif;
+}
+
+code > *, code {
+  font-family: "Fira Code", monospace!important;
+  font-weight: 600;
+}
+
+img {
+  border-radius: 5px;
+}
+</style>
+<h1 id="badavas-server-api-documentation">Badavas Server API Documentation </h1>
+<p>By Nathan Tao</p>
+<h2 id="important-types-for-typescript">Important Types (for Typescript) </h2>
+<h3 id="user">User </h3>
+<p>Represents a single user.</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  type<span class="token operator">:</span> UserType<span class="token punctuation">;</span>
+  uid<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>          <span class="token comment">// user id</span>
+  username<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  description<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  wants<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  website<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>      <span class="token comment">// unused, ignore for now</span>
+  email<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  youtube<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>      <span class="token comment">// unused, ignore for now</span>
+  snapchat<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>     <span class="token comment">// unused, ignore for now</span>
+  instagram<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>    <span class="token comment">// unused, ignore for now</span>
+  facebook<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>     <span class="token comment">// unused, ignore for now</span>
+  tiktok<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>       <span class="token comment">// unused, ignore for now</span>
+  cscore<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>       <span class="token comment">// a metric representative of a user's</span>
+                        <span class="token comment">// contribution to the Badavas community</span>
+  verified<span class="token operator">:</span> VerificationState<span class="token punctuation">;</span>
+  supporter_banner_url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p>Here is how CScore is described on the computer site:<br>
+<img src="image.png" height="300"></p>
+<h4 id="usertype">UserType </h4>
+<p>Not super relavant right now. Either ignore or display on the user's profile whether they are a company or individual. Both company and individual accounts have equal access to content.</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-enum">enum</span> UserType <span class="token punctuation">{</span>
+  company<span class="token punctuation">,</span>
+  individual<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h4 id="verificationstate">VerificationState </h4>
+<p>Ask me (Nathan) for the application criteria for a user to achieve the next “level” of verification.</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-enum">enum</span> VerificationState <span class="token punctuation">{</span>
+  unverified<span class="token punctuation">,</span>
+  email_verified<span class="token punctuation">,</span>
+  business_verified<span class="token punctuation">,</span>
+  integrity_verified<span class="token punctuation">,</span>
+  dedication_verified<span class="token punctuation">,</span>
+  full_trust<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h3 id="error">ERROR </h3>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name"><span class="token constant">ERROR</span></span> <span class="token punctuation">{</span>
+  errorDesc<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  errorID<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>    <span class="token comment">// a jumbled string identifying the error, just</span>
+                      <span class="token comment">// display this value to the user if an error occurs</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h4 id="handling-errors">Handling ERRORs </h4>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>res<span class="token punctuation">.</span>ok<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-const">const</span> errorData <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">alert</span><span class="token punctuation">(</span>
+<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Oh no! You found an error!
+  
+Status: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>response<span class="token punctuation">.</span>status<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
+Error Code: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>errorData<span class="token punctuation">.</span>errorID<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
+Description: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>errorData<span class="token punctuation">.</span>errorDesc<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
+
+If you believe this error should not have occured, please report this as an issue. We recommend you screenshot this message and record the error code.</span><span class="token template-punctuation string">`</span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="conversation">Conversation </h3>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name">Conversation</span> <span class="token punctuation">{</span>
+  otherUser<span class="token operator">:</span> User<span class="token punctuation">;</span>
+  unreadMessage<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+  acceptedConv<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>   <span class="token comment">// unused, ignore for now</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h3 id="message">Message </h3>
+<p>Sent in a conversation.</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
+  sender<span class="token operator">:</span> User<span class="token punctuation">;</span>
+  reciever<span class="token operator">:</span> User<span class="token punctuation">;</span>
+  timeSent<span class="token operator">:</span> Date<span class="token punctuation">;</span>
+  message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h3 id="post">Post </h3>
+<p>Not in terms of "POST request", but rather the "posts" feature on our website.</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name">Post</span> <span class="token punctuation">{</span>
+  postid<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>    <span class="token comment">// can be used in endpoints to reference the post</span>
+  sender<span class="token operator">:</span> User<span class="token punctuation">;</span>
+  timesent<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>  <span class="token comment">// to convert to legible date: new Date(postObj.timesent).toLocaleString()</span>
+  title<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  value<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>     <span class="token comment">// the content of the post in sanitized HTML</span>
+  replyTo<span class="token operator">:</span> <span class="token keyword keyword-null">null</span><span class="token punctuation">;</span>     <span class="token comment">// unused, ignore for now</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h2 id="post-requests">POST Requests </h2>
+<p>POST requests will be subdivided into two types. In my frontend code, I access “type 1” endpoints using forms and “type 2” endpoints using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a>. Type 1 endpoints tend to be used for file uploading, whereas type 2 endpoints serve all other purposes.</p>
+<h2 id="type-1-post-endpoints">Type 1 POST Endpoints </h2>
+<p>Type 1 POST Endpoints can be accessed at <a href="https://badavas.com/api/">https://badavas.com/api/</a>.</p>
+<h3 id="upload-pfp">/upload-pfp </h3>
+<p>Utilized to upload profile pictures. It is recommended that you convert the image into 100x100 px (any method of doing this suffices). The uploaded image must be less than 100 KB in size.</p>
+<p>Badavas Super Supporters may upload images of type png, jpg, or gif. Other users may only upload files of type png or jpg.</p>
+<p>Minimal setup from client:</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token operator">&lt;</span>form
+  action<span class="token operator">=</span><span class="token string">"/api/upload-pfp"</span>
+  encType<span class="token operator">=</span><span class="token string">"multipart/form-data"</span>
+  method<span class="token operator">=</span><span class="token string">"post"</span>
+<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>label<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>input
+      type<span class="token operator">=</span><span class="token string">"file"</span>
+      id<span class="token operator">=</span><span class="token string">"pfp-input"</span>    <span class="token comment">// must be pfp-input</span>
+      name<span class="token operator">=</span><span class="token string">"pfp-input"</span>  <span class="token comment">// must be pfp-input</span>
+      accept<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">image/png, image/jpeg</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>isSuperSupporter <span class="token operator">?</span> <span class="token string">", image/gif"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span>
+    <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>input
+      type<span class="token operator">=</span><span class="token string">"submit"</span>
+    <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">&gt;</span>
+</code></pre><h3 id="upload-pitch">/upload-pitch </h3>
+<p>Utilized to upload pitches. It is recommended that you convert the video into 1080 px width and 1920 px height (any method of doing this suffices). The uploaded video must be less than 50 MB in size and be of type mp4 or mov.</p>
+<p>Minimal setup from client:</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token operator">&lt;</span>form
+  action<span class="token operator">=</span><span class="token string">"/api/upload-pitch"</span>
+  encType<span class="token operator">=</span><span class="token string">"multipart/form-data"</span>
+  method<span class="token operator">=</span><span class="token string">"post"</span>
+<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>label<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>input
+      type<span class="token operator">=</span><span class="token string">"file"</span>
+      id<span class="token operator">=</span><span class="token string">"pitch-input"</span>    <span class="token comment">// must be pitch-input</span>
+      name<span class="token operator">=</span><span class="token string">"pitch-input"</span>  <span class="token comment">// must be pitch-input</span>
+      accept<span class="token operator">=</span><span class="token string">"video/mp4,video/mov"</span>
+    <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>input
+    type<span class="token operator">=</span><span class="token string">"submit"</span>
+  <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">&gt;</span>
+</code></pre><h2 id="type-2-post-format">Type 2 POST Format </h2>
+<h3 id="minimal-type-2-post-request">Minimal Type 2 POST request: </h3>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-try">try</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword keyword-const">const</span> res <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">"https://badavas.com/api2/sign-in"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    method<span class="token operator">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span>
+    headers<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token string-property property">"Content-type"</span><span class="token operator">:</span> <span class="token string">"application/json"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    body<span class="token operator">:</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token string">"example_username"</span><span class="token punctuation">,</span>  <span class="token comment">// ARGUMENTS GO HERE</span>
+      <span class="token string">"example_password"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span> <span class="token keyword keyword-catch">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="example-function-for-sending-type-2-post-requests">Example Function for Sending Type 2 POST Requests </h3>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-const">const</span> post <span class="token operator">=</span> <span class="token punctuation">(</span>action<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> data<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-try">try</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword keyword-const">const</span> res <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">https://badavas.com/api2/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>action<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      method<span class="token operator">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span>
+      headers<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"Content-type"</span><span class="token operator">:</span> <span class="token string">"application/json"</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      body<span class="token operator">:</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>res<span class="token punctuation">.</span>ok<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-const">const</span> errorData <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment">// handle error, see Important Types (for Typescript) &gt; ERROR &gt; Handling ERRORs</span>
+
+      <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// these actions return BLOBs</span>
+    <span class="token keyword keyword-const">const</span> blobActions <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"get-profile-image"</span><span class="token punctuation">,</span> <span class="token string">"get-pitch"</span><span class="token punctuation">,</span> <span class="token string">"get-pitch-thumbnail"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> blobActions<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span> <span class="token operator">?</span> res<span class="token punctuation">.</span><span class="token function">blob</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> res<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token punctuation">}</span> <span class="token keyword keyword-catch">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h2 id="type-2-post-request-endpoints">Type 2 POST Request Endpoints </h2>
+<p>Type 2 POST endpoints can be found at <a href="https://badavas.com/api2/">https://badavas.com/api2/</a>.</p>
+<h3 id="get-curr-user">/get-curr-user </h3>
+<h4 id="parameters">Parameters: </h4>
+<p>None</p>
+<h4 id="returns">Returns: </h4>
+<p><a href="#user"><code>User</code></a> if the user is logged in.<br>
+<code>false</code> if the user is not logged in.<br>
+<a href="#error"><code>ERROR</code></a> if the server cannot resolve a problem.</p>
+<h3 id="sign-out">/sign-out </h3>
+<h4 id="parameters-1">Parameters: </h4>
+<p>None</p>
+<h4 id="returns-1">Returns: </h4>
+<p><code>true</code> if the sign out process succeeds.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-user">/get-user </h3>
+<h4 id="parameters-2">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user id of the user to retrieve.</li>
+</ol>
+<h4 id="returns-2">Returns: </h4>
+<p><a href="#user"><code>User</code></a> if the user exists and is successfully retrieved.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-all-users">/get-all-users </h3>
+<p>Try to minimize use of this endpoint in favor of endpoints that transfer less data (e.g. <a href="#get-user">/get-user</a>, <a href="#get-recommendations">/get-recommendations</a>).</p>
+<h4 id="parameters-3">Parameters: </h4>
+<p>None</p>
+<h4 id="returns-3">Returns: </h4>
+<p><a href="#user"><code>User[]</code></a> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="create-user">/create-user </h3>
+<p>Creates a user by the sign up process (NOTE: Verification email must be sent separately, using <a href="#send-verif-email">/send-verif-email</a>). Follow <a href="#user-property-rules">User Property Rules</a> for property inputs.</p>
+<p>This endpoint also automatically signs in the user.</p>
+<h4 id="parameters-4">Parameters: </h4>
+<ol>
+<li>A <a href="#user-blueprint"><code>UserBlueprint</code></a> object representing the user to create.<br>
+a. <strong>PRECONDITION:</strong> <code>userBlueprint.uid</code> has not been taken. Use <a href="#check-uid-validity">/check-uid-validity</a> to ensure this.</li>
+</ol>
+<h4 id="returns-4">Returns: </h4>
+<p><code>true</code> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h4 id="specific-associated-types">Specific Associated Types: </h4>
+<h5 id="user-blueprint">User Blueprint </h5>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-interface">interface</span> <span class="token class-name">UserBlueprint</span> <span class="token punctuation">{</span>
+  uid<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  type<span class="token operator">:</span> UserType<span class="token punctuation">;</span>
+  username<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  email<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  password<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  description<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  wants<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h3 id="att-verif">/att-verif </h3>
+<p>Deprecated. Do not use.</p>
+<h3 id="update-user">/update-user </h3>
+<p>Updates the currently logged in user. You will have to call <a href="#get-curr-user">/get-curr-user</a> to get the updated <code>User</code> object representing the current user.</p>
+<h4 id="parameters-5">Parameters: </h4>
+<ol>
+<li>A <code>UserEditableProperty</code> representing the property of the current user to update.<br>
+a. <strong>PRECONDITION:</strong> If the current user is not a Badavas Super Supporter (which can be identified through <a href="#get-is-supporter">/get-is-supporter</a>), the property to update may NOT begin with <code>"supporter_"</code>. In other words, only Badavas Super Supporters may update properties associated with Badavas Super Supporters.</li>
+<li>A <code>any</code> representing the new value for the property. Follow <a href="#user-property-rules">User Property Rules</a> for property inputs.</li>
+</ol>
+<h4 id="returns-5">Returns: </h4>
+<p><a href="#user"><code>User</code></a> representing the updated user, if updating is successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h4 id="specific-associated-types-1">Specific Associated Types: </h4>
+<h5 id="usereditableproperty">UserEditableProperty </h5>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-type">type</span> <span class="token class-name">UserEditableProperty</span> <span class="token operator">=</span> <span class="token string">"uid"</span> <span class="token operator">|</span> <span class="token string">"type"</span> <span class="token operator">|</span> <span class="token string">"username"</span> <span class="token operator">|</span> <span class="token string">"description"</span> <span class="token operator">|</span> <span class="token string">"wants"</span> <span class="token operator">|</span> <span class="token string">"email"</span> <span class="token operator">|</span> <span class="token string">"supporter_banner_url"</span> <span class="token operator">|</span> <span class="token string">"password"</span><span class="token punctuation">;</span>
+</code></pre><h3 id="reload-curr-user">/reload-curr-user </h3>
+<p>Unclear use case. Use to ensure the current user object is synced with the current user's object in the database. <a href="#get-curr-user">/get-curr-user</a> has to be used after calling this method to obtain the most recent user. Safe to ignore.</p>
+<h4 id="parameters-6">Parameters: </h4>
+<p>None</p>
+<h4 id="returns-6">Returns: </h4>
+<p><code>true</code> if successful user reload.<br>
+<code>ERROR</code> otherwise.</p>
+<h3 id="check-uid-validity">/check-uid-validity </h3>
+<p>Returns whether a user ID is available or taken. Primary use case is when setting a user's ID to ensure that the new value is valid.</p>
+<h4 id="parameters-7">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID to check.</li>
+</ol>
+<h4 id="returns-7">Returns: </h4>
+<p><code>true</code> if user ID is available.<br>
+<code>false</code> if user ID is taken or server encountered an error.</p>
+<h3 id="sign-in">/sign-in </h3>
+<p>Attempts to sign in and updates the current user if the sign in process is successful.</p>
+<h4 id="parameters-8">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the user attempting to sign in.</li>
+<li>A <code>string</code> representing the password of the user attempting to sign in.</li>
+</ol>
+<h4 id="returns-8">Returns: </h4>
+<p><code>true</code> if the user ID and password match, and no error is encountered (i.e. sign in is successful).<br>
+<code>false</code> otherwise.</p>
+<h3 id="get-conversations">/get-conversations </h3>
+<p>Returns all the conversations associated with the current user</p>
+<h4 id="parameters-9">Parameters: </h4>
+<p>None</p>
+<h4 id="returns-9">Returns: </h4>
+<p><a href="#conversation"><code>Conversation[]</code></a> representing the conversations associated with the current user, if conversation retrieval is successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h4 id="realtime-messaging">Realtime Messaging: </h4>
+<p>We use <a href="https://socket.io/">socket.io</a> for realtime messaging. The following is an example react.js hook that outputs a live-updating variable associated with the current user's conversations.</p>
+<p>The server emits an <code>"nm"</code> (new message) event every time the current user sends or recieves a message.</p>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-import">import</span> <span class="token punctuation">{</span> useEffect<span class="token punctuation">,</span> useState <span class="token punctuation">}</span> <span class="token keyword keyword-from">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-import">import</span> <span class="token punctuation">{</span> io <span class="token punctuation">}</span> <span class="token keyword keyword-from">from</span> <span class="token string">"socket.io-client"</span><span class="token punctuation">;</span>
+<span class="token comment">// more types have to be imported here as well</span>
+
+<span class="token keyword keyword-export">export</span> <span class="token keyword keyword-const">const</span> useConversations <span class="token operator">=</span> <span class="token punctuation">(</span>currUser<span class="token operator">:</span> User<span class="token punctuation">)</span><span class="token operator">:</span> Conversation<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  
+  <span class="token keyword keyword-const">const</span> <span class="token punctuation">[</span>socket<span class="token punctuation">,</span> setSocket<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useState</span><span class="token generic class-name"><span class="token operator">&lt;</span>Socket<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-const">const</span> <span class="token punctuation">[</span>conversations<span class="token punctuation">,</span> setConversations<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useState</span><span class="token generic class-name"><span class="token operator">&lt;</span>Conversation<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// assume getConversations() retrieves the messages from </span>
+    <span class="token comment">// the /get-conversations endpoint and handles potential errors</span>
+    <span class="token function">getConversations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token operator">:</span> Conversation<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token function">setConversations</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// create socket by sharing our current user's user ID</span>
+    <span class="token function">setSocket</span><span class="token punctuation">(</span><span class="token function">io</span><span class="token punctuation">(</span><span class="token punctuation">{</span> query<span class="token operator">:</span> <span class="token punctuation">{</span> thisUID<span class="token operator">:</span> currUser<span class="token punctuation">.</span>uid <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>socket<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// listen for new messages</span>
+    socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"nm"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-const">const</span> convs <span class="token operator">=</span> <span class="token function">getConversations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">setConversations</span><span class="token punctuation">(</span>convs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      socket<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span><span class="token string">"nm"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>socket<span class="token punctuation">,</span> conversations<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-return">return</span> conversations<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h3 id="get-messages">/get-messages </h3>
+<p>Returns the messages the current user has with another user.</p>
+<h4 id="parameters-10">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the “other” user (the user that is messaging / being messaged by the current user).</li>
+<li>An integer <code>number</code>, “limit”, that represents the number of messages to obtain (most recent messages are obtained first).<br>
+a. For reference, the computer site starts at <code>25</code> for this parameter and increases this limit by 25 after the user has scrolled through all sent messages. This endpoint has to be called again to obtain the next 25 messages, using <code>50</code>, then <code>75</code>, then <code>100</code>, etc. for this parameter.</li>
+</ol>
+<h4 id="returns-10">Returns: </h4>
+<p><code>Message[]</code> representing the first “limit” messages, sorted from most recent to least recent, if message retrieval is successful.<br>
+<code>ERROR</code> otherwise.</p>
+<h3 id="send-message">/send-message </h3>
+<p>Does what you think it does.</p>
+<h4 id="parameters-11">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the receiving user's ID.</li>
+<li>A <code>string</code> representing the message.<br>
+a. <strong>PRECONDITION:</strong> This string's length is greater than 0 and less than 1025 characters.</li>
+</ol>
+<h4 id="returns-11">Returns: </h4>
+<p><code>true</code> if message send is successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-pitch-count">/get-pitch-count </h3>
+<p>Gets the number of pitches a user has.</p>
+<h4 id="parameters-12">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the user whose pitch count will be returned.<br>
+a. <strong>PRECONDITION:</strong> This user ID corresponds to a real user.</li>
+</ol>
+<h4 id="returns-12">Returns: </h4>
+<p><code>number</code> representing the number of pitches the user has, <code>0</code> if error.</p>
+<h3 id="get-pitch-views">/get-pitch-views </h3>
+<p>Gets the number of views a pitch has.</p>
+<h4 id="parameters-13">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the owner of the pitch.<br>
+a. <strong>PRECONDITION:</strong> This user ID corresponds to a real user.</li>
+<li>An integer <code>number</code> representing the index of the pitch amongst the user's pitches. Each pitch is identified by its owner and its index.<br>
+a. <strong>PRECONDITION:</strong> This number is less than the pitch count of the owner and greater than -1.</li>
+</ol>
+<h4 id="returns-13">Returns: </h4>
+<p><code>number</code> (integer) representing the requested pitch's views, if retrieval is successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="add-pitch-view">/add-pitch-view </h3>
+<p>Adds a view to a pitch.</p>
+<h4 id="parameters-14">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the owner of the pitch.<br>
+a. <strong>PRECONDITION:</strong> This user ID corresponds to a real user.</li>
+<li>An integer <code>number</code> representing the index of the pitch amongst the user's pitches. Each pitch is identified by its owner and its index.<br>
+a. <strong>PRECONDITION:</strong> This number is less than the pitch count of the owner and greater than -1.</li>
+</ol>
+<h4 id="returns-14">Returns: </h4>
+<p><code>true</code> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="send-verif-email">/send-verif-email </h3>
+<p>Sends a verification email. The user, if preconditions are met, the email they claim is valid, and the email they claim is theirs, will recieve, by email, a verification code. Verifying to above level 1 is manual, and will be managed by the rest of the Badavas team.</p>
+<h4 id="parameters-15">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the user whose email should be verified.<br>
+a. <strong>PRECONDITION:</strong> The current user has not attempted to send a verification email in the last 60 seconds. Do NOT allow instantaneous resends (it will get blocked by the server).<br>
+b. <strong>PRECONDITION:</strong> The user's verification state is 0 (<code>user.verified === 0</code>).<br>
+c. <strong>PRECONDITION:</strong> User has already been created.<br>
+Why not just use the current user instead of having this parameter? Good question.</li>
+</ol>
+<h4 id="returns-15">Returns: </h4>
+<p><code>true</code> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="activate-verif-code">/activate-verif-code </h3>
+<p>Verification can occur on the main computer site. Once the verification email is sent using <a href="#send-verif-email">/send-verif-email</a>, my computer site (which will have mobile-compatible verification pages) can handle the rest of the verification process (which includes this endpoint). You can ignore this endpoint.</p>
+<h4 id="parameters-16">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the verification code.</li>
+</ol>
+<h4 id="returns-16">Returns: </h4>
+<p><code>true</code> if verification is successful.<br>
+<code>false</code> if no unexpected error occured but the verification was prevented for some valid reason (wrong user, code expired).<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="send-password-reset-email">/send-password-reset-email </h3>
+<p>Sends an email to reset the password. Given a user ID and an email. Checks for user ID—email correspondence.</p>
+<h4 id="parameters-17">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID associated with this password reset request.</li>
+<li>A <code>string</code> representing the email associated with this passowrd reset request.</li>
+</ol>
+<h4 id="returns-17">Returns: </h4>
+<p><code>1</code> if email was sent successfully.<br>
+<code>2</code> if no user has both the given user ID and the given email.<br>
+<code>3</code> if an unknown failure occured.</p>
+<h3 id="activate-password-reset-code">/activate-password-reset-code </h3>
+<p>For a similar reason to <a href="#activate-verif-code">/activate-verif-code</a>, you may ignore this endpoint.</p>
+<h4 id="parameters-18">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the password reset code.</li>
+<li>A <code>string</code> representing the new password.</li>
+</ol>
+<h4 id="returns-18">Returns: </h4>
+<p><code>true</code> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="check-pw-reset-code-is-valid">/check-pw-reset-code-is-valid </h3>
+<p>You can ignore this too.</p>
+<h4 id="parameters-19">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing a password reset code.</li>
+</ol>
+<h4 id="returns-19">Returns: </h4>
+<p><code>true</code> if the code is valid and no errors occured.<br>
+<code>false</code> if the code is invalid (does not exist) and no errors occured.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-root-posts">/get-root-posts </h3>
+<p>Get posts.</p>
+<h4 id="parameters-20">Parameters: </h4>
+<ol>
+<li>Either<br>
+a. A <code>string</code> representing the user ID associated with a user whose posts should be retrieved or<br>
+b. <code>null</code> to not filter posts.</li>
+<li>An (integer) <code>number</code> representing the number of posts to retrieve. Most recent posts will be retrieved first.</li>
+</ol>
+<h4 id="returns-20">Returns: </h4>
+<p><code>Post[]</code>, sorted from most to least recent post, if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="post-post">/post-post </h3>
+<p>Posts a post.<br>
+<strong>PRECONDITION:</strong> The current user has not posted in the last 30 minutes, and the current user's verification level is greater than 0 (<code>currUser.verified !== 0</code>).</p>
+<h4 id="parameters-21">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the content of the post, in <strong>sanitized</strong> HTML (will also be sanitized again in backend).</li>
+<li>A <code>string</code> representing the title of the post.</li>
+</ol>
+<h4 id="returns-21">Returns: </h4>
+<p><code>true</code> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-last-post-time">/get-last-post-time </h3>
+<p>Gets the last time a user posted.</p>
+<h4 id="parameters-22">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the user whose last post time will be retrieved.</li>
+</ol>
+<h4 id="returns-22">Returns: </h4>
+<p><code>number</code> representing the requested user's last post time as a number of milliseconds since the UNIX Epoch, if no unhandled error was encountered, and the user has no undeleted posts.<br>
+<code>0</code> if no unhandled error was encountered, and the user has no undeleted posts.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-message-count">/get-message-count </h3>
+<p>Gets the number of messages in a conversation between the current user and another user.</p>
+<h4 id="parameters-23">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the “other” user the conversation (i.e. the user that the current user is sending / recieving messages to / from).</li>
+</ol>
+<h4 id="returns-23">Returns: </h4>
+<p><code>number</code> (integer) representing the message count.</p>
+<h3 id="get-pitch-thumbnail">/get-pitch-thumbnail </h3>
+<p>Gets the thumbnail of a pitch.</p>
+<h4 id="parameters-24">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the owner of the pitch.<br>
+a. <strong>PRECONDITION:</strong> This user ID corresponds to a real user.</li>
+<li>An integer <code>number</code> representing the index of the pitch amongst the user's pitches. Each pitch is identified by its owner and its index.<br>
+a. <strong>PRECONDITION:</strong> This number is less than the pitch count of the owner and greater than -1.</li>
+</ol>
+<h4 id="returns-24">Returns: </h4>
+<p>A blob with a 1-frame video (do not question why this returns a video instead of an image) representing the thumbnail of the pitch, if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-pitch">/get-pitch </h3>
+<p>Gets a pitch.</p>
+<h4 id="parameters-25">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the owner of the pitch.<br>
+a. <strong>PRECONDITION:</strong> This user ID corresponds to a real user.</li>
+<li>An integer <code>number</code> representing the index of the pitch amongst the user's pitches. Each pitch is identified by its owner and its index.<br>
+a. <strong>PRECONDITION:</strong> This number is less than the pitch count of the owner and greater than -1.</li>
+</ol>
+<h4 id="returns-25">Returns: </h4>
+<p>A blob with the pitch video.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="similarity">/similarity </h3>
+<p>Gets the Badavas AI similarity score between two users.</p>
+<h4 id="parameters-26">Parameters: </h4>
+<ol>
+<li>A <a href="#user"><code>User</code></a> representing the first user to compare.</li>
+<li>A <a href="#user"><code>User</code></a> representing the second user to compare.</li>
+</ol>
+<h4 id="returns-26">Returns: </h4>
+<p><a href="#similaritydata"><code>SimilarityData</code></a> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h4 id="specific-associated-types-2">Specific Associated Types: </h4>
+<h5 id="similaritydata">SimilarityData </h5>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-interface">interface</span> <span class="token class-name">SimilarityData</span> <span class="token punctuation">{</span>
+  score<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>  <span class="token comment">// 0-100 with 1 digit after the decimal point</span>
+  justification<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h3 id="get-recommendations">/get-recommendations </h3>
+<p>Recommends and outputs 3 users that would partner well with the current user out of a psuedorandomly generated subset (max size 100) of the whole user set.</p>
+<p>Basically recommends partnerships, with potential for different recommendations if this endpoint is called again.</p>
+<h4 id="parameters-27">Parameters: </h4>
+<p>None</p>
+<h4 id="returns-27">Returns: </h4>
+<p><a href="#recommendationdata"><code>[RecommendationData, RecommendationData, RecommendationData]</code></a> representing the 3 users that were recommended, if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h4 id="specific-associated-types-3">Specific Associated Types: </h4>
+<h5 id="recommendationdata">RecommendationData </h5>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-type">type</span> <span class="token class-name">RecommendationData</span> <span class="token operator">=</span> <span class="token punctuation">[</span>User<span class="token punctuation">,</span> <span class="token builtin">number</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">// number = similiarity score between current user and the User in this tuple</span>
+</code></pre><h3 id="suggest">/suggest </h3>
+<p>Locates and outputs 3 users that correspond to a search query.</p>
+<h4 id="parameters-28">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the search query.</li>
+<li>A <code>number</code>. Deprecated, set to <code>3</code>.</li>
+</ol>
+<h4 id="returns-28">Returns: </h4>
+<p><code>[User, User, User]</code> representing the 3 users that were recommended, if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-accessed-uids">/get-accessed-uids </h3>
+<p>Returns whitelisted users. Your site should have a “whitelist” mode where only whitelisted users can enter the site (all users can sign up, but only whitelisted users can access the full site, whereas non-whitelisted users can only sign up, sign in, view the home page, reset their password [which will be partially handled by the computer site], and verify [which will also be partially handled by the computer site]).</p>
+<h4 id="parameters-29">Parameters: </h4>
+<p>None</p>
+<h4 id="returns-29">Returns: </h4>
+<p><code>string[]</code> containing the UIDs of the whitelisted users, if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-is-supporter">/get-is-supporter </h3>
+<p>Returns whether a given user is a Badavas Super Supporter.</p>
+<h4 id="parameters-30">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the user to query.</li>
+</ol>
+<h4 id="returns-30">Returns: </h4>
+<p><code>true</code> if the requested user is a Badavas Super Supporter, and no unhandled exceptions occured.<br>
+<code>false</code> if the requested user is not a Badavas Super Supporter, and no unhandled exceptions occured.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h2 id="get-requests">GET Requests </h2>
+<p>Assuming you program using React, any endpoint you send a GET request to will direct to your index.html file. History manipulation and varying behavior based on path should be handled on the frontend, and your React code should be able to respond to starting in different URLs.</p>
+<h2 id="user-property-rules">User Property Rules </h2>
+<p>Notice some properties max at powers of 2, others max at one less than a power of two, and some max at one more than a power of two (what???). Do not question these choices :&gt;</p>
+<p>Also note: new lines must be counted as characters.</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Conditions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>supporter_banner_url</td>
+<td>0-256 chars long, represents png, jpeg, jpg, or gif</td>
+</tr>
+<tr>
+<td>username</td>
+<td>1-65 chars long, does not contain <code>{</code>, <code>}</code>, <code>Business A</code>, <code>Business B</code>, <code>Businesses A and B</code>, <code>Businesses B and A</code></td>
+</tr>
+<tr>
+<td>uid</td>
+<td>1-30 chars long, only contains lowercase alphanumeric chars, <code>_</code>, or <code>-</code> (no en/em dashes). Unique</td>
+</tr>
+<tr>
+<td>email</td>
+<td>1-255 chars long, whole string resembles an email format (you can find regex online for matching potentially valid emails)</td>
+</tr>
+<tr>
+<td>password</td>
+<td>1-65 chars long, does not contain backslashes</td>
+</tr>
+<tr>
+<td>description</td>
+<td>100-256 chars long</td>
+</tr>
+<tr>
+<td>wants</td>
+<td>100-256 chars long</td>
+</tr>
+<tr>
+<td>type</td>
+<td>0 or 1, 0 == company account, 1 == individual account</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>yayayay finally this is the end<br>
+lmk if there are any issues with this documentation by sending an email to <a href="mailto:natnu212@gmail.com">natnu212@gmail.com</a><br>
+if a precondition to some endpoint seems like it <em>should</em> exist but does not exist (or was not written), let me know!</p>
+<p>:&gt;</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
