@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+      <link rel="stylesheet" href="file:///c:\Users\natha\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.14\crossnote\dependencies\katex\katex.min.css">
       
       
       
@@ -65,9 +65,10 @@ img {
   cscore<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>       <span class="token comment">// a metric representative of a user's</span>
                         <span class="token comment">// contribution to the Badavas community</span>
   verified<span class="token operator">:</span> VerificationState<span class="token punctuation">;</span>
-  supporter_banner_url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  supporter_banner_url<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token keyword keyword-null">null</span><span class="token punctuation">;</span>
+  avail<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>       <span class="token comment">// whether the user is available for partnerships  </span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p>Here is how CScore is described on the computer site:<br>
+</code></pre><p>Here is how CScore is described on the V2 computer site:<br>
 <img src="image.png" height="300"></p>
 <h4 id="usertype">UserType </h4>
 <p>Not super relavant right now. Either ignore or display on the user's profile whether they are a company or individual. Both company and individual accounts have equal access to content.</p>
@@ -98,11 +99,11 @@ img {
   <span class="token function">alert</span><span class="token punctuation">(</span>
 <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Oh no! You found an error!
   
-Status: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>response<span class="token punctuation">.</span>status<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
+Status: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>res<span class="token punctuation">.</span>status<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
 Error Code: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>errorData<span class="token punctuation">.</span>errorID<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
 Description: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>errorData<span class="token punctuation">.</span>errorDesc<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">
 
-If you believe this error should not have occured, please report this as an issue. We recommend you screenshot this message and record the error code.</span><span class="token template-punctuation string">`</span></span>
+If you believe this error should not have occurred, please report this as an issue. We recommend you screenshot this message and record the error code.</span><span class="token template-punctuation string">`</span></span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
@@ -118,15 +119,15 @@ If you believe this error should not have occured, please report this as an issu
 <pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name">Message</span> <span class="token punctuation">{</span>
   sender<span class="token operator">:</span> User<span class="token punctuation">;</span>
   reciever<span class="token operator">:</span> User<span class="token punctuation">;</span>
-  timeSent<span class="token operator">:</span> Date<span class="token punctuation">;</span>
-  message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  timeSent<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>   <span class="token comment">// date string, convert to date object: new Date(messageObj.timesent)</span>
+  message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>   <span class="token comment">// the text of the message, kinda weird naming ik why name two things message... well it was from an older version of the site</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre><h3 id="post">Post </h3>
 <p>Not in terms of "POST request", but rather the "posts" feature on our website.</p>
 <pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name">Post</span> <span class="token punctuation">{</span>
   postid<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>    <span class="token comment">// can be used in endpoints to reference the post</span>
-  sender<span class="token operator">:</span> User<span class="token punctuation">;</span>
-  timesent<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>  <span class="token comment">// to convert to legible date: new Date(postObj.timesent).toLocaleString()</span>
+  sender<span class="token operator">:</span> User<span class="token punctuation">;</span>      <span class="token comment">// the post's author</span>
+  timesent<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>  <span class="token comment">// to convert to date object: new Date(postObj.timesent), for some reason this timesent propery is a number while the timesent property for the Message interface is a string...</span>
   title<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   value<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>     <span class="token comment">// the content of the post in sanitized HTML</span>
   replyTo<span class="token operator">:</span> <span class="token keyword keyword-null">null</span><span class="token punctuation">;</span>     <span class="token comment">// unused, ignore for now</span>
@@ -144,17 +145,15 @@ If you believe this error should not have occured, please report this as an issu
   encType<span class="token operator">=</span><span class="token string">"multipart/form-data"</span>
   method<span class="token operator">=</span><span class="token string">"post"</span>
 <span class="token operator">&gt;</span>
-  <span class="token operator">&lt;</span>label<span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span>input
-      type<span class="token operator">=</span><span class="token string">"file"</span>
-      id<span class="token operator">=</span><span class="token string">"pfp-input"</span>    <span class="token comment">// must be pfp-input</span>
-      name<span class="token operator">=</span><span class="token string">"pfp-input"</span>  <span class="token comment">// must be pfp-input</span>
-      accept<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">image/png, image/jpeg</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>isSuperSupporter <span class="token operator">?</span> <span class="token string">", image/gif"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span>
-    <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span>input
-      type<span class="token operator">=</span><span class="token string">"submit"</span>
-    <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
-  <span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>input
+    type<span class="token operator">=</span><span class="token string">"file"</span>
+    id<span class="token operator">=</span><span class="token string">"pfp-input"</span>    <span class="token comment">// must be pfp-input</span>
+    name<span class="token operator">=</span><span class="token string">"pfp-input"</span>  <span class="token comment">// must be pfp-input</span>
+    accept<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">image/png, image/jpeg</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>isSuperSupporter <span class="token operator">?</span> <span class="token string">", image/gif"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span>
+  <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>input
+    type<span class="token operator">=</span><span class="token string">"submit"</span>
+  <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">&gt;</span>
 </code></pre><h3 id="upload-pitch">/upload-pitch </h3>
 <p>Utilized to upload pitches. It is recommended that you convert the video into 1080 px width and 1920 px height (any method of doing this suffices). The uploaded video must be less than 50 MB in size and be of type mp4 or mov.</p>
@@ -164,14 +163,12 @@ If you believe this error should not have occured, please report this as an issu
   encType<span class="token operator">=</span><span class="token string">"multipart/form-data"</span>
   method<span class="token operator">=</span><span class="token string">"post"</span>
 <span class="token operator">&gt;</span>
-  <span class="token operator">&lt;</span>label<span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span>input
-      type<span class="token operator">=</span><span class="token string">"file"</span>
-      id<span class="token operator">=</span><span class="token string">"pitch-input"</span>    <span class="token comment">// must be pitch-input</span>
-      name<span class="token operator">=</span><span class="token string">"pitch-input"</span>  <span class="token comment">// must be pitch-input</span>
-      accept<span class="token operator">=</span><span class="token string">"video/mp4,video/mov"</span>
-    <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
-  <span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>input
+    type<span class="token operator">=</span><span class="token string">"file"</span>
+    id<span class="token operator">=</span><span class="token string">"pitch-input"</span>    <span class="token comment">// must be pitch-input</span>
+    name<span class="token operator">=</span><span class="token string">"pitch-input"</span>  <span class="token comment">// must be pitch-input</span>
+    accept<span class="token operator">=</span><span class="token string">"video/mp4,video/mov"</span>
+  <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
   <span class="token operator">&lt;</span>input
     type<span class="token operator">=</span><span class="token string">"submit"</span>
   <span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>input<span class="token operator">&gt;</span>
@@ -195,7 +192,7 @@ If you believe this error should not have occured, please report this as an issu
   <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre><h3 id="example-function-for-sending-type-2-post-requests">Example Function for Sending Type 2 POST Requests </h3>
-<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-const">const</span> post <span class="token operator">=</span> <span class="token punctuation">(</span>action<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> data<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-export">export</span> <span class="token keyword keyword-const">const</span> post <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span>action<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> data<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
   <span class="token keyword keyword-try">try</span> <span class="token punctuation">{</span>
 
     <span class="token keyword keyword-const">const</span> res <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">https://badavas.com/api2/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>action<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
@@ -263,6 +260,7 @@ a. <strong>PRECONDITION:</strong> <code>userBlueprint.uid</code> has not been ta
 </ol>
 <h4 id="returns-4">Returns: </h4>
 <p><code>true</code> if successful.<br>
+<code>false</code> no unexpected errors but email invalid.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h4 id="specific-associated-types">Specific Associated Types: </h4>
 <h5 id="user-blueprint">User Blueprint </h5>
@@ -281,16 +279,17 @@ a. <strong>PRECONDITION:</strong> <code>userBlueprint.uid</code> has not been ta
 <p>Updates the currently logged in user. You will have to call <a href="#get-curr-user">/get-curr-user</a> to get the updated <code>User</code> object representing the current user.</p>
 <h4 id="parameters-5">Parameters: </h4>
 <ol>
-<li>A <code>UserEditableProperty</code> representing the property of the current user to update.<br>
+<li>A <a href="#usereditableproperty"><code>UserEditableProperty</code></a> representing the property of the current user to update.<br>
 a. <strong>PRECONDITION:</strong> If the current user is not a Badavas Super Supporter (which can be identified through <a href="#get-is-supporter">/get-is-supporter</a>), the property to update may NOT begin with <code>"supporter_"</code>. In other words, only Badavas Super Supporters may update properties associated with Badavas Super Supporters.</li>
-<li>A <code>any</code> representing the new value for the property. Follow <a href="#user-property-rules">User Property Rules</a> for property inputs.</li>
+<li>A <code>any</code> representing the new value for the property. Follow <a href="#user-property-rules">User Property Rules</a> for property inputs.<br>
+a. <strong>NOTE:</strong> When updating the <code>avail</code> user property, do not input a boolean. Instead, input <code>1</code> for <code>true</code> and <code>0</code> for <code>false</code>.</li>
 </ol>
 <h4 id="returns-5">Returns: </h4>
 <p><a href="#user"><code>User</code></a> representing the updated user, if updating is successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h4 id="specific-associated-types-1">Specific Associated Types: </h4>
 <h5 id="usereditableproperty">UserEditableProperty </h5>
-<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-type">type</span> <span class="token class-name">UserEditableProperty</span> <span class="token operator">=</span> <span class="token string">"uid"</span> <span class="token operator">|</span> <span class="token string">"type"</span> <span class="token operator">|</span> <span class="token string">"username"</span> <span class="token operator">|</span> <span class="token string">"description"</span> <span class="token operator">|</span> <span class="token string">"wants"</span> <span class="token operator">|</span> <span class="token string">"email"</span> <span class="token operator">|</span> <span class="token string">"supporter_banner_url"</span> <span class="token operator">|</span> <span class="token string">"password"</span><span class="token punctuation">;</span>
+<pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-type">type</span> <span class="token class-name">UserEditableProperty</span> <span class="token operator">=</span> <span class="token string">"uid"</span> <span class="token operator">|</span> <span class="token string">"type"</span> <span class="token operator">|</span> <span class="token string">"username"</span> <span class="token operator">|</span> <span class="token string">"description"</span> <span class="token operator">|</span> <span class="token string">"wants"</span> <span class="token operator">|</span> <span class="token string">"email"</span> <span class="token operator">|</span> <span class="token string">"supporter_banner_url"</span> <span class="token operator">|</span> <span class="token string">"password"</span> <span class="token operator">|</span> <span class="token string">"avail"</span><span class="token punctuation">;</span>
 </code></pre><h3 id="reload-curr-user">/reload-curr-user </h3>
 <p>Unclear use case. Use to ensure the current user object is synced with the current user's object in the database. <a href="#get-curr-user">/get-curr-user</a> has to be used after calling this method to obtain the most recent user. Safe to ignore.</p>
 <h4 id="parameters-6">Parameters: </h4>
@@ -332,7 +331,6 @@ a. <strong>PRECONDITION:</strong> If the current user is not a Badavas Super Sup
 <span class="token comment">// more types have to be imported here as well</span>
 
 <span class="token keyword keyword-export">export</span> <span class="token keyword keyword-const">const</span> useConversations <span class="token operator">=</span> <span class="token punctuation">(</span>currUser<span class="token operator">:</span> User<span class="token punctuation">)</span><span class="token operator">:</span> Conversation<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  
   <span class="token keyword keyword-const">const</span> <span class="token punctuation">[</span>socket<span class="token punctuation">,</span> setSocket<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useState</span><span class="token generic class-name"><span class="token operator">&lt;</span>Socket<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token keyword keyword-const">const</span> <span class="token punctuation">[</span>conversations<span class="token punctuation">,</span> setConversations<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useState</span><span class="token generic class-name"><span class="token operator">&lt;</span>Conversation<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -352,8 +350,8 @@ a. <strong>PRECONDITION:</strong> If the current user is not a Badavas Super Sup
     <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>socket<span class="token punctuation">)</span> <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
 
     <span class="token comment">// listen for new messages</span>
-    socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"nm"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-      <span class="token keyword keyword-const">const</span> convs <span class="token operator">=</span> <span class="token function">getConversations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    socket<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"nm"</span><span class="token punctuation">,</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword keyword-const">const</span> convs <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> <span class="token function">getConversations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token function">setConversations</span><span class="token punctuation">(</span>convs<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -374,10 +372,10 @@ a. <strong>PRECONDITION:</strong> If the current user is not a Badavas Super Sup
 a. For reference, the computer site starts at <code>25</code> for this parameter and increases this limit by 25 after the user has scrolled through all sent messages. This endpoint has to be called again to obtain the next 25 messages, using <code>50</code>, then <code>75</code>, then <code>100</code>, etc. for this parameter.</li>
 </ol>
 <h4 id="returns-10">Returns: </h4>
-<p><code>Message[]</code> representing the first “limit” messages, sorted from most recent to least recent, if message retrieval is successful.<br>
+<p><a href="#message"><code>Message[]</code></a> representing the first “limit” messages, sorted from most recent to least recent, if message retrieval is successful.<br>
 <code>ERROR</code> otherwise.</p>
 <h3 id="send-message">/send-message </h3>
-<p>Does what you think it does.</p>
+<p>This does what you think it does (iykyk).</p>
 <h4 id="parameters-11">Parameters: </h4>
 <ol>
 <li>A <code>string</code> representing the receiving user's ID.</li>
@@ -432,6 +430,7 @@ Why not just use the current user instead of having this parameter? Good questio
 </ol>
 <h4 id="returns-15">Returns: </h4>
 <p><code>true</code> if successful.<br>
+<code>false</code> if no unexpected errors occured but the inputted email was invalid.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="activate-verif-code">/activate-verif-code </h3>
 <p>Verification can occur on the main computer site. Once the verification email is sent using <a href="#send-verif-email">/send-verif-email</a>, my computer site (which will have mobile-compatible verification pages) can handle the rest of the verification process (which includes this endpoint). You can ignore this endpoint.</p>
@@ -441,19 +440,19 @@ Why not just use the current user instead of having this parameter? Good questio
 </ol>
 <h4 id="returns-16">Returns: </h4>
 <p><code>true</code> if verification is successful.<br>
-<code>false</code> if no unexpected error occured but the verification was prevented for some valid reason (wrong user, code expired).<br>
+<code>false</code> if no unexpected error occurred but the verification was prevented for some valid reason (wrong user, code expired).<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="send-password-reset-email">/send-password-reset-email </h3>
 <p>Sends an email to reset the password. Given a user ID and an email. Checks for user ID—email correspondence.</p>
 <h4 id="parameters-17">Parameters: </h4>
 <ol>
 <li>A <code>string</code> representing the user ID associated with this password reset request.</li>
-<li>A <code>string</code> representing the email associated with this passowrd reset request.</li>
+<li>A <code>string</code> representing the email associated with this password reset request.</li>
 </ol>
 <h4 id="returns-17">Returns: </h4>
 <p><code>1</code> if email was sent successfully.<br>
 <code>2</code> if no user has both the given user ID and the given email.<br>
-<code>3</code> if an unknown failure occured.</p>
+<code>3</code> if an unknown failure occurred.</p>
 <h3 id="activate-password-reset-code">/activate-password-reset-code </h3>
 <p>For a similar reason to <a href="#activate-verif-code">/activate-verif-code</a>, you may ignore this endpoint.</p>
 <h4 id="parameters-18">Parameters: </h4>
@@ -471,8 +470,8 @@ Why not just use the current user instead of having this parameter? Good questio
 <li>A <code>string</code> representing a password reset code.</li>
 </ol>
 <h4 id="returns-19">Returns: </h4>
-<p><code>true</code> if the code is valid and no errors occured.<br>
-<code>false</code> if the code is invalid (does not exist) and no errors occured.<br>
+<p><code>true</code> if the code is valid and no errors occurred.<br>
+<code>false</code> if the code is invalid (does not exist) and no errors occurred.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="get-root-posts">/get-root-posts </h3>
 <p>Get posts.</p>
@@ -484,7 +483,7 @@ b. <code>null</code> to not filter posts.</li>
 <li>An (integer) <code>number</code> representing the number of posts to retrieve. Most recent posts will be retrieved first.</li>
 </ol>
 <h4 id="returns-20">Returns: </h4>
-<p><code>Post[]</code>, sorted from most to least recent post, if successful.<br>
+<p><a href="#post"><code>Post[]</code></a>, sorted from most to least recent post, if successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="post-post">/post-post </h3>
 <p>Posts a post.<br>
@@ -497,56 +496,101 @@ b. <code>null</code> to not filter posts.</li>
 <h4 id="returns-21">Returns: </h4>
 <p><code>true</code> if successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="post-f-post">/post-f-post </h3>
+<p>Posts the default “just-joined-Badavas” post. Poster does not have to have verification level greater than 0, but may not have greater than one post before this call, or <a href="#error"><code>ERROR</code></a> <code>0xpPRT60150739</code>, “User must be at least verification level 1 to post.”, 401, will be returned.</p>
+<h4 id="parameters-22">Parameters: </h4>
+<p>None</p>
+<h4 id="returns-22">Returns: </h4>
+<p><code>true</code> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="get-last-post-time">/get-last-post-time </h3>
 <p>Gets the last time a user posted.</p>
-<h4 id="parameters-22">Parameters: </h4>
+<h4 id="parameters-23">Parameters: </h4>
 <ol>
 <li>A <code>string</code> representing the user ID of the user whose last post time will be retrieved.</li>
 </ol>
-<h4 id="returns-22">Returns: </h4>
+<h4 id="returns-23">Returns: </h4>
 <p><code>number</code> representing the requested user's last post time as a number of milliseconds since the UNIX Epoch, if no unhandled error was encountered, and the user has no undeleted posts.<br>
 <code>0</code> if no unhandled error was encountered, and the user has no undeleted posts.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="delete-post">/delete-post </h3>
+<p>Deletes a post.</p>
+<h4 id="parameters-24">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the ID of the post that will be deleted.<br>
+a. <strong>PRECONDITION:</strong> The owner of the specified post must be equivalent to the current, signed-in user.</li>
+</ol>
+<h4 id="returns-24">Returns: </h4>
+<p><code>true</code> if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="delete-pitch">/delete-pitch </h3>
+<p>Deletes a pitch.</p>
+<h4 id="parameters-25">Parameters: </h4>
+<ol>
+<li>A <code>number</code> (integer) representing the index of the pitch to delete (among the pitches of the current, signed-in user).</li>
+</ol>
+<h4 id="returns-25">Returns: </h4>
+<p><code>undefined</code> if successful (don't question the inconsistency; if it ain't broke, don't fix it [im scared of breaking things]).<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-post-count">/get-post-count </h3>
+<p>Gets the number of non-deleted posts (potentially owned by a specific user).</p>
+<h4 id="parameters-26">Parameters: </h4>
+<ol>
+<li>A <code>string</code> representing the user ID of the user whose non-deleted post count should be found, or <code>null</code> to find the total number of posts.</li>
+</ol>
+<h4 id="returns-26">Returns: </h4>
+<p><code>number</code>, the count of non-deleted posts under the selected constraints, if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
+<h3 id="get-random-users">/get-random-users </h3>
+<p>Randomly gets and returns a specified number of verified (verification level &gt; 1) users.</p>
+<h4 id="parameters-27">Parameters: </h4>
+<ol>
+<li>A <code>number</code> representing the number of users to return, if possible.</li>
+</ol>
+<h4 id="returns-27">Returns: </h4>
+<p><code>User[]</code>, the array of random users, if successful.<br>
+<a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="get-message-count">/get-message-count </h3>
 <p>Gets the number of messages in a conversation between the current user and another user.</p>
-<h4 id="parameters-23">Parameters: </h4>
+<h4 id="parameters-28">Parameters: </h4>
 <ol>
-<li>A <code>string</code> representing the “other” user the conversation (i.e. the user that the current user is sending / recieving messages to / from).</li>
+<li>A <code>string</code> representing the uid of the “other” user in the conversation (i.e. the user that the current user is sending / recieving messages to / from).</li>
 </ol>
-<h4 id="returns-23">Returns: </h4>
-<p><code>number</code> (integer) representing the message count.</p>
+<h4 id="returns-28">Returns: </h4>
+<p><code>number</code> (integer) representing the message count, if successful.<br>
+<code>0</code> otherwise.</p>
 <h3 id="get-pitch-thumbnail">/get-pitch-thumbnail </h3>
 <p>Gets the thumbnail of a pitch.</p>
-<h4 id="parameters-24">Parameters: </h4>
+<h4 id="parameters-29">Parameters: </h4>
 <ol>
 <li>A <code>string</code> representing the user ID of the owner of the pitch.<br>
 a. <strong>PRECONDITION:</strong> This user ID corresponds to a real user.</li>
 <li>An integer <code>number</code> representing the index of the pitch amongst the user's pitches. Each pitch is identified by its owner and its index.<br>
 a. <strong>PRECONDITION:</strong> This number is less than the pitch count of the owner and greater than -1.</li>
 </ol>
-<h4 id="returns-24">Returns: </h4>
+<h4 id="returns-29">Returns: </h4>
 <p>A blob with a 1-frame video (do not question why this returns a video instead of an image) representing the thumbnail of the pitch, if successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="get-pitch">/get-pitch </h3>
 <p>Gets a pitch.</p>
-<h4 id="parameters-25">Parameters: </h4>
+<h4 id="parameters-30">Parameters: </h4>
 <ol>
 <li>A <code>string</code> representing the user ID of the owner of the pitch.<br>
 a. <strong>PRECONDITION:</strong> This user ID corresponds to a real user.</li>
 <li>An integer <code>number</code> representing the index of the pitch amongst the user's pitches. Each pitch is identified by its owner and its index.<br>
 a. <strong>PRECONDITION:</strong> This number is less than the pitch count of the owner and greater than -1.</li>
 </ol>
-<h4 id="returns-25">Returns: </h4>
+<h4 id="returns-30">Returns: </h4>
 <p>A blob with the pitch video.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="similarity">/similarity </h3>
 <p>Gets the Badavas AI similarity score between two users.</p>
-<h4 id="parameters-26">Parameters: </h4>
+<h4 id="parameters-31">Parameters: </h4>
 <ol>
 <li>A <a href="#user"><code>User</code></a> representing the first user to compare.</li>
 <li>A <a href="#user"><code>User</code></a> representing the second user to compare.</li>
 </ol>
-<h4 id="returns-26">Returns: </h4>
+<h4 id="returns-31">Returns: </h4>
 <p><a href="#similaritydata"><code>SimilarityData</code></a> if successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h4 id="specific-associated-types-2">Specific Associated Types: </h4>
@@ -558,9 +602,9 @@ a. <strong>PRECONDITION:</strong> This number is less than the pitch count of th
 </code></pre><h3 id="get-recommendations">/get-recommendations </h3>
 <p>Recommends and outputs 3 users that would partner well with the current user out of a psuedorandomly generated subset (max size 100) of the whole user set.</p>
 <p>Basically recommends partnerships, with potential for different recommendations if this endpoint is called again.</p>
-<h4 id="parameters-27">Parameters: </h4>
+<h4 id="parameters-32">Parameters: </h4>
 <p>None</p>
-<h4 id="returns-27">Returns: </h4>
+<h4 id="returns-32">Returns: </h4>
 <p><a href="#recommendationdata"><code>[RecommendationData, RecommendationData, RecommendationData]</code></a> representing the 3 users that were recommended, if successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h4 id="specific-associated-types-3">Specific Associated Types: </h4>
@@ -568,30 +612,30 @@ a. <strong>PRECONDITION:</strong> This number is less than the pitch count of th
 <pre data-role="codeBlock" data-info="ts" class="language-ts ts"><code><span class="token keyword keyword-type">type</span> <span class="token class-name">RecommendationData</span> <span class="token operator">=</span> <span class="token punctuation">[</span>User<span class="token punctuation">,</span> <span class="token builtin">number</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">// number = similiarity score between current user and the User in this tuple</span>
 </code></pre><h3 id="suggest">/suggest </h3>
 <p>Locates and outputs 3 users that correspond to a search query.</p>
-<h4 id="parameters-28">Parameters: </h4>
+<h4 id="parameters-33">Parameters: </h4>
 <ol>
 <li>A <code>string</code> representing the search query.</li>
 <li>A <code>number</code>. Deprecated, set to <code>3</code>.</li>
 </ol>
-<h4 id="returns-28">Returns: </h4>
+<h4 id="returns-33">Returns: </h4>
 <p><code>[User, User, User]</code> representing the 3 users that were recommended, if successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="get-accessed-uids">/get-accessed-uids </h3>
 <p>Returns whitelisted users. Your site should have a “whitelist” mode where only whitelisted users can enter the site (all users can sign up, but only whitelisted users can access the full site, whereas non-whitelisted users can only sign up, sign in, view the home page, reset their password [which will be partially handled by the computer site], and verify [which will also be partially handled by the computer site]).</p>
-<h4 id="parameters-29">Parameters: </h4>
+<h4 id="parameters-34">Parameters: </h4>
 <p>None</p>
-<h4 id="returns-29">Returns: </h4>
+<h4 id="returns-34">Returns: </h4>
 <p><code>string[]</code> containing the UIDs of the whitelisted users, if successful.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h3 id="get-is-supporter">/get-is-supporter </h3>
 <p>Returns whether a given user is a Badavas Super Supporter.</p>
-<h4 id="parameters-30">Parameters: </h4>
+<h4 id="parameters-35">Parameters: </h4>
 <ol>
 <li>A <code>string</code> representing the user ID of the user to query.</li>
 </ol>
-<h4 id="returns-30">Returns: </h4>
-<p><code>true</code> if the requested user is a Badavas Super Supporter, and no unhandled exceptions occured.<br>
-<code>false</code> if the requested user is not a Badavas Super Supporter, and no unhandled exceptions occured.<br>
+<h4 id="returns-35">Returns: </h4>
+<p><code>true</code> if the requested user is a Badavas Super Supporter, and no unhandled exceptions occurred.<br>
+<code>false</code> if the requested user is not a Badavas Super Supporter, and no unhandled exceptions occurred.<br>
 <a href="#error"><code>ERROR</code></a> otherwise.</p>
 <h2 id="get-requests">GET Requests </h2>
 <p>Assuming you program using React, any endpoint you send a GET request to will direct to your index.html file. History manipulation and varying behavior based on path should be handled on the frontend, and your React code should be able to respond to starting in different URLs.</p>
